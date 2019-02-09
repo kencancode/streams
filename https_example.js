@@ -8,7 +8,11 @@ var options = {
 // called by https when the request is made.
 var callback = function(response) {
   console.log('In response handler callback!');
-  console.log('Response: ', response);
+
+  response.on('data', function(chuck){
+      console.log('[-- CHUNK OF LENGTH ' + chuck.length + '--]');
+      console.log(chuck.toString());
+  });
 }
 
 https.request(options, callback).end();
